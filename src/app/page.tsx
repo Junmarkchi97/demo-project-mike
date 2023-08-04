@@ -2,6 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { sampleData, tableHead } from './data'
 import { Fragment, useState, useReducer } from 'react'
+import axios from 'axios'
 
 interface dataType {
   Year: number
@@ -56,6 +57,33 @@ export default function Home(): JSX.Element {
 
   const openModal = (): void => {
     setIsOpen(true)
+  }
+
+  const addCar = async () => {
+    const carDetails = {
+      Year,
+      Make,
+      Model,
+      Color,
+      VIN,
+      LicenseNumber,
+      LicenseState,
+      TowDate,
+      GridForPricing,
+      Total,
+    }
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/api/add',
+        carDetails,
+      )
+
+      return response.data
+    } catch (error) {
+      console.error('Error while adding car:', error)
+      throw error
+    }
   }
 
   console.table({
@@ -218,7 +246,8 @@ export default function Home(): JSX.Element {
                       </div>
                     ))}
                     <button
-                      type="submit"
+                      onClick={addCar}
+                      type="button"
                       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       Add
