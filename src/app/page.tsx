@@ -101,7 +101,7 @@ export default function Home(): JSX.Element {
 
   return (
     <>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg p-10">
+      <div className="relative overflow-x-auto sm:rounded-lg p-10">
         <div className="pb-4 bg-white dark:bg-gray-900">
           <div className="flex items-center gap-5">
             <label htmlFor="table-search" className="sr-only">
